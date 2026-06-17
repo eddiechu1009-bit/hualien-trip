@@ -19,6 +19,11 @@
   }
   *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
   html{scroll-behavior:smooth}
+  /* 尊重使用者「減少動態效果」偏好（無障礙） */
+  @media (prefers-reduced-motion: reduce){
+    *{animation-duration:.001ms !important;animation-iteration-count:1 !important;
+      transition-duration:.001ms !important;scroll-behavior:auto !important}
+  }
   body{
     margin:0;font-family:"Noto Sans TC",system-ui,-apple-system,sans-serif;
     background:var(--bg);color:var(--ink);line-height:1.65;
@@ -1043,7 +1048,7 @@
       wrap.innerHTML='';
       photos.forEach(p=>{
         const d=document.createElement('div');d.className='ph';
-        d.innerHTML='<img src="'+p.data+'"><button class="del" aria-label="刪除">✕</button>';
+        d.innerHTML='<img src="'+p.data+'" alt="'+(p.label||'旅程照片').replace(/"/g,'')+'"><button class="del" aria-label="刪除照片">✕</button>';
         d.querySelector('.del').onclick=async(e)=>{e.stopPropagation();
           if(!confirm('刪除這張照片？'))return; await delPhoto(p.id); renderPhotos(card); updateRecap();};
         wrap.appendChild(d);
