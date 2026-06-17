@@ -143,6 +143,38 @@
   .progress .reset{margin-top:9px;font-size:12px;color:var(--sub);background:none;border:none;cursor:pointer;
     text-decoration:underline;padding:0}
 
+  /* ===== Photos on cards ===== */
+  .photos{display:flex;gap:7px;flex-wrap:wrap;margin-top:10px}
+  .photos .ph{position:relative;width:72px;height:72px;border-radius:10px;overflow:hidden;border:1px solid var(--line)}
+  .photos .ph img{width:100%;height:100%;object-fit:cover;display:block}
+  .photos .ph .del{position:absolute;top:2px;right:2px;width:18px;height:18px;border-radius:50%;
+    background:rgba(0,0,0,.6);color:#fff;border:none;font-size:11px;line-height:1;cursor:pointer;display:grid;place-items:center}
+  .addph{display:inline-flex;align-items:center;gap:5px;margin-top:10px;font-size:12.5px;font-weight:700;
+    color:var(--brand);background:#e0f2f7;border:none;border-radius:10px;padding:8px 12px;cursor:pointer}
+  .addph:active{transform:scale(.97)}
+  .item.food .addph{color:var(--sun);background:#fff0e6}
+  .item.play .addph{color:var(--leaf);background:#e7f5ec}
+
+  /* ===== Recap (回顧影片) ===== */
+  .recap-card{background:linear-gradient(135deg,#7c3aed,#ec4899);color:#fff;border-radius:var(--r);
+    padding:18px 16px;box-shadow:var(--shadow);margin-bottom:4px}
+  .recap-card h3{margin:0 0 4px;font-size:18px;font-weight:900}
+  .recap-card p{margin:0 0 12px;font-size:12.5px;opacity:.92}
+  .recap-card .rbtns{display:flex;gap:8px;flex-wrap:wrap}
+  .recap-card button{flex:1;min-width:120px;border:none;border-radius:11px;padding:11px;font-size:13.5px;
+    font-weight:800;cursor:pointer;background:rgba(255,255,255,.92);color:#7c3aed}
+  .recap-card button:active{transform:scale(.97)}
+  .recap-card button:disabled{opacity:.5}
+  .player{position:fixed;inset:0;z-index:200;background:#000;display:none;flex-direction:column;align-items:center;justify-content:center}
+  .player.show{display:flex}
+  .player canvas{max-width:100%;max-height:80vh;border-radius:8px}
+  .player .pbar{position:absolute;top:0;left:0;right:0;display:flex;justify-content:space-between;align-items:center;
+    padding:14px 16px calc(14px + env(safe-area-inset-top));color:#fff}
+  .player .pbar button{background:rgba(255,255,255,.2);color:#fff;border:none;border-radius:10px;
+    padding:9px 14px;font-size:13px;font-weight:700;cursor:pointer}
+  .player .status{position:absolute;bottom:0;left:0;right:0;text-align:center;color:#fff;font-size:13px;
+    padding:18px;opacity:.9}
+
   .leg{position:relative;margin:-4px 0 10px;padding:3px 0 3px 4px;font-size:12px;font-weight:600;
     color:var(--sub);display:flex;align-items:center;gap:6px}
   .leg::before{content:"";position:absolute;left:-17px;top:0;bottom:0;width:2px;
@@ -214,10 +246,11 @@
 
 <nav class="daynav">
   <div class="wrap">
-    <a href="#day1" class="active">DAY 1<span class="d">6/19 壽豐</span></a>
-    <a href="#day2">DAY 2<span class="d">6/20 賞鯨</span></a>
-    <a href="#day3">DAY 3<span class="d">6/21 返北</span></a>
+    <a href="#day1" class="active">D1<span class="d">6/19 壽豐</span></a>
+    <a href="#day2">D2<span class="d">6/20 賞鯨</span></a>
+    <a href="#day3">D3<span class="d">6/21 返北</span></a>
     <a href="#eat">美食<span class="d">口袋名單</span></a>
+    <a href="#cafe">咖啡<span class="d">手沖甜點</span></a>
   </div>
 </nav>
 
@@ -227,6 +260,15 @@
     <div class="pt"><div>✅ 行程完成度</div><div><span id="pdone">0</span> / <span id="ptotal">0</span></div></div>
     <div class="bar"><div class="fill" id="pfill"></div></div>
     <button class="reset" id="preset">清除全部勾選</button>
+  </div>
+
+  <div class="recap-card" id="recapCard" style="margin-top:12px;display:none">
+    <h3>🎬 旅程回顧</h3>
+    <p>沿途在各景點按「📷 加照片」，旅程結束就能播放／下載回顧影片！目前已收集 <b id="phcount">0</b> 張照片。</p>
+    <div class="rbtns">
+      <button id="playRecap">▶️ 播放回顧</button>
+      <button id="dlRecap">⬇️ 下載影片</button>
+    </div>
   </div>
 
   <!-- ============ DAY 1 ============ -->
@@ -712,7 +754,7 @@
     <div class="reco-grid">
       <div class="reco">
         <div class="top"><div><h4>Giocare 義式·手沖咖啡 <span class="rank" style="background:#92400e">1</span></h4><div class="type">老宅庭院·貓咪·手作陶 · 樹人街7號 · 🔴週三四公休</div></div></div>
-        <div class="desc">花蓮最具代表的老宅露天咖啡，數百則好評。手沖單品＋自家手作陶杯，氛圍靜謐。每人低消任一品項、免服務費</div>
+        <div class="desc">花蓮最具代表的老宅露天咖啡，數百則好評。手沖單品＋自家手作陶杯，氛圍靜謐。每人低消任一品項、免服務費 · <b>☕有賣咖啡豆</b></div>
         <div class="btns"><a class="btn btn-g" href="https://www.google.com/maps/search/?api=1&query=Giocare+花蓮市樹人街7號" target="_blank">Google 導航</a><a class="btn btn-a" href="https://maps.apple.com/?q=Giocare+花蓮市樹人街7號" target="_blank">Apple 地圖</a><a class="btn btn-tel" href="tel:0980917424">📞</a></div>
       </div>
       <div class="reco">
@@ -732,7 +774,7 @@
       </div>
       <div class="reco">
         <div class="top"><div><h4>河狸咖啡 <span class="rank" style="background:#92400e">5</span></h4><div class="type">手沖(豆常換)·磅蛋糕 · 建林街6號 · 簡約明亮</div></div></div>
-        <div class="desc">音樂人開的店，手沖咖啡豆子常換、搭磅蛋糕。簡約明亮，7–8人也OK</div>
+        <div class="desc">音樂人開的店，手沖咖啡豆子常換、搭磅蛋糕。簡約明亮，7–8人也OK · <b>☕有賣咖啡豆</b></div>
         <div class="btns"><a class="btn btn-g" href="https://www.google.com/maps/search/?api=1&query=河狸咖啡+花蓮市建林街6號" target="_blank">Google 導航</a><a class="btn btn-a" href="https://maps.apple.com/?q=河狸咖啡+花蓮市建林街6號" target="_blank">Apple 地圖</a></div>
       </div>
     </div>
@@ -755,6 +797,26 @@
         <div class="btns"><a class="btn btn-g" href="https://www.google.com/maps/search/?api=1&query=小和好點+dot.dot+壽豐鄉平和一街119號" target="_blank">Google 導航</a><a class="btn btn-a" href="https://maps.apple.com/?q=小和好點+壽豐鄉平和一街119號" target="_blank">Apple 地圖</a></div>
       </div>
     </div>
+
+    <div style="margin:18px 0 8px;font-size:14px;font-weight:800;color:#78350f">🫘 買咖啡豆 / 自家烘焙（帶回家）</div>
+    <div class="reco-grid">
+      <div class="reco">
+        <div class="top"><div><h4>Coffee Flash 快閃咖啡 <span class="rank" style="background:#78350f">1</span></h4><div class="type">外帶精品咖啡吧 · 民國路80巷17號 · 🔴週一二公休</div></div></div>
+        <div class="desc">職人外帶吧，常備多款<b>自家烘焙單品豆與配方豆</b>，價格佛心。PTT 推薦名單。可買豆＋外帶手沖 · 0976-548-806</div>
+        <div class="btns"><a class="btn btn-g" href="https://www.google.com/maps/search/?api=1&query=Coffee+Flash+快閃咖啡+花蓮市民國路80巷17號" target="_blank">Google 導航</a><a class="btn btn-a" href="https://maps.apple.com/?q=Coffee+Flash+快閃咖啡+花蓮市民國路80巷17號" target="_blank">Apple 地圖</a></div>
+      </div>
+      <div class="reco">
+        <div class="top"><div><h4>阿莫咖啡 A-more <span class="rank" style="background:#78350f">2</span></h4><div class="type">自烘豆·貓咖啡 · 近火車站 · 平價親切</div></div></div>
+        <div class="desc">開11年老咖啡館，<b>自家烘焙＋販售咖啡豆、濾掛包</b>，單品手沖＋手作甜點。有店貓、近車站、價格平實</div>
+        <div class="btns"><a class="btn btn-g" href="https://www.google.com/maps/search/?api=1&query=阿莫咖啡+A-more+花蓮車站" target="_blank">Google 導航</a><a class="btn btn-a" href="https://maps.apple.com/?q=阿莫咖啡+花蓮" target="_blank">Apple 地圖</a></div>
+      </div>
+      <div class="reco">
+        <div class="top"><div><h4>烘豆廊 Coffee Beans Gallery <span class="rank" style="background:#78350f">3</span></h4><div class="type">自家烘焙 · 中原路400號 · 🔴週一二公休</div></div></div>
+        <div class="desc">專業<b>烘豆＋賣豆</b>，可頌＋拿鐵組合人氣高（與找到了可頌聯動）。09:00–16:00</div>
+        <div class="btns"><a class="btn btn-g" href="https://www.google.com/maps/search/?api=1&query=烘豆廊+Coffee+Beans+Gallery+花蓮市中原路400號" target="_blank">Google 導航</a><a class="btn btn-a" href="https://maps.apple.com/?q=烘豆廊+花蓮市中原路400號" target="_blank">Apple 地圖</a></div>
+      </div>
+    </div>
+    <p style="font-size:12px;color:var(--sub);margin:10px 0 0">💡 想帶豆子回家也可問 Giocare、河狸（皆自烘）。花蓮有「奇萊跑咖地圖」收錄16間自家烘焙咖啡館，市區店家多可索取。</p>
   </section>
 
   <!-- ============ 提醒 ============ -->
@@ -784,6 +846,28 @@
       <summary>🚗 自駕 / 時間</summary>
       <div class="body">花蓮市區到花蓮港約10–15分；市區到壽豐約30–40分。6/19 三點才取車，豐春甘蔗冰建議改 6/20 下午。<b>🛡️ 租車保險（吉時保）期間 6/19 15:00–6/21 15:00</b>，還車記得在保險到期前、並<b>加滿油</b>，預留時間趕 16:23 火車。</div>
     </details>
+    <details class="faq">
+      <summary>🚗 租車注意事項（取/還車必看）</summary>
+      <div class="body">
+        <b>取車（6/19 15:00）</b><br>
+        ・攜帶：<b>駕照正本（每位駕駛）、身分證／健保卡、訂車confirm</b><br>
+        ・現場會驗車況、拍照存證 → <b>自己也繞車拍一圈</b>（含刮痕、輪框）存手機，還車免爭議<br>
+        ・確認油表位置、雨刷/大燈/手煞車操作、備胎與三角錐<br>
+        ・問清楚：加油種類（92/95）、有無 ETC、停車費誰付<br><br>
+        <b>行駛中</b><br>
+        ・台11線/蘇花沿海彎多，注意測速、落石路段<br>
+        ・3歲孩童<b>務必坐安全座椅</b>（取車時跟行易確認是否含兒童座椅，沒有要先加訂）<br>
+        ・賞鯨/景點停車先看清楚有無紅線、收費<br><br>
+        <b>還車（6/21，保險15:00到期前）</b><br>
+        ・<b>加滿油</b>並留加油收據（多數要求滿油還）<br>
+        ・還車驗車後再離開，確認無新增費用<br>
+        ・預留時間 → 趕 <b>16:23 火車</b>，建議 15:30 前還完<br><br>
+        <b>🛡️ 保險（已投保·吉時保）</b><br>
+        ・期間 6/19 15:00–6/21 15:00｜含車體碰撞20萬、第三人傷害/財損、乘客責任<br>
+        ・出險備：駕照、行照、<b>道路交通事故當事人登記聯單</b>，至保戶專區理賠通報<br>
+        ・行易租車 ☎ 03-831-1616｜吉時保客服 ☎ 0800-369-168
+      </div>
+    </details>
   </section>
 
   <footer>
@@ -800,13 +884,25 @@
   <a href="#day3"><span class="qi">🚄</span>返北</a>
   <a href="#eat"><span class="qi">🍤</span>美食</a>
   <a href="#cafe"><span class="qi">☕</span>咖啡</a>
-  <a href="#tips"><span class="qi">📌</span>提醒</a>
+  <a href="#recapCard"><span class="qi">🎬</span>回顧</a>
 </nav>
+
+<div class="player" id="player">
+  <div class="pbar">
+    <button id="playerClose">✕ 關閉</button>
+    <span style="font-weight:700">🎬 花蓮回顧</span>
+    <span style="width:60px"></span>
+  </div>
+  <canvas id="recapCanvas" width="1080" height="1080"></canvas>
+  <div class="status" id="playerStatus"></div>
+</div>
+
+<input type="file" id="photoInput" accept="image/*" capture="environment" style="display:none" />
 
 <script>
   // Scroll-spy for sticky day nav
   const navLinks = [...document.querySelectorAll('.daynav a')];
-  const map = {day1:0, day2:1, day3:2, eat:3};
+  const map = {day1:0, day2:1, day3:2, eat:3, cafe:4};
   const obs = new IntersectionObserver((entries)=>{
     entries.forEach(e=>{
       if(e.isIntersecting && map[e.target.id]!==undefined){
@@ -815,7 +911,7 @@
       }
     });
   },{rootMargin:'-45% 0px -50% 0px'});
-  ['day1','day2','day3','eat'].forEach(id=>{
+  ['day1','day2','day3','eat','cafe'].forEach(id=>{
     const el=document.getElementById(id); if(el) obs.observe(el);
   });
 
@@ -870,6 +966,165 @@
       cards.forEach(c=>{ c.classList.remove('done'); const it=c.closest('.item'); it&&it.classList.remove('done'); });
       refresh();
     });
+  })();
+
+  // ===== Photos + Recap video =====
+  (function(){
+    // ---- tiny IndexedDB wrapper ----
+    const DB='hualien-photos', STORE='photos'; let db=null;
+    function open(){return new Promise((res,rej)=>{const r=indexedDB.open(DB,1);
+      r.onupgradeneeded=()=>{r.result.createObjectStore(STORE,{keyPath:'id',autoIncrement:true});};
+      r.onsuccess=()=>res(r.result); r.onerror=()=>rej(r.error);});}
+    function tx(mode){return db.transaction(STORE,mode).objectStore(STORE);}
+    function addPhoto(o){return new Promise((res,rej)=>{const r=tx('readwrite').add(o);r.onsuccess=()=>res(r.result);r.onerror=()=>rej(r.error);});}
+    function delPhoto(id){return new Promise((res,rej)=>{const r=tx('readwrite').delete(id);r.onsuccess=()=>res();r.onerror=()=>rej(r.error);});}
+    function allPhotos(){return new Promise((res,rej)=>{const r=tx('readonly').getAll();r.onsuccess=()=>res(r.result||[]);r.onerror=()=>rej(r.error);});}
+
+    // ---- compress image to dataURL ----
+    function compress(file, max){return new Promise((res)=>{
+      const img=new Image(); const url=URL.createObjectURL(file);
+      img.onload=()=>{ let{width:w,height:h}=img; const s=Math.min(1,max/Math.max(w,h));
+        w=Math.round(w*s); h=Math.round(h*s);
+        const c=document.createElement('canvas'); c.width=w; c.height=h;
+        c.getContext('2d').drawImage(img,0,0,w,h);
+        URL.revokeObjectURL(url); res(c.toDataURL('image/jpeg',0.82)); };
+      img.src=url; });}
+
+    const recapCard=document.getElementById('recapCard');
+    const phcount=document.getElementById('phcount');
+    const photoInput=document.getElementById('photoInput');
+    let pending=null; // {key,label,cardEl}
+
+    function titleOf(card){const h=card.querySelector('h3');return h?h.textContent.trim().replace(/\s+/g,' '):'';}
+    function keyOf(card,i){return (i+1)+'_'+titleOf(card).replace(/\s+/g,'').slice(0,24);}
+
+    async function renderPhotos(card){
+      const key=card.dataset.phkey;
+      const photos=(await allPhotos()).filter(p=>p.key===key);
+      let wrap=card.querySelector('.photos');
+      if(!wrap){wrap=document.createElement('div');wrap.className='photos';
+        card.querySelector('.addph').before(wrap);}
+      wrap.innerHTML='';
+      photos.forEach(p=>{
+        const d=document.createElement('div');d.className='ph';
+        d.innerHTML='<img src="'+p.data+'"><button class="del" aria-label="刪除">✕</button>';
+        d.querySelector('.del').onclick=async(e)=>{e.stopPropagation();
+          if(!confirm('刪除這張照片？'))return; await delPhoto(p.id); renderPhotos(card); updateRecap();};
+        wrap.appendChild(d);
+      });
+    }
+    async function updateRecap(){
+      const all=await allPhotos();
+      phcount.textContent=all.length;
+      recapCard.style.display = all.length>0 ? 'block':'none';
+    }
+
+    photoInput.addEventListener('change', async()=>{
+      const f=photoInput.files&&photoInput.files[0]; if(!f||!pending)return;
+      try{
+        const data=await compress(f,1280);
+        await addPhoto({key:pending.key,label:pending.label,data:data});
+        await renderPhotos(pending.cardEl); await updateRecap();
+      }catch(e){ alert('照片處理失敗，請再試一次'); }
+      photoInput.value=''; pending=null;
+    });
+
+    open().then(async(database)=>{
+      db=database;
+      const cards=[...document.querySelectorAll('.tl .item .card')];
+      cards.forEach((card,i)=>{
+        const key=keyOf(card,i); card.dataset.phkey=key;
+        const btn=document.createElement('button');
+        btn.className='addph'; btn.innerHTML='📷 加照片';
+        btn.onclick=(e)=>{e.stopPropagation();
+          pending={key:key,label:titleOf(card),cardEl:card}; photoInput.click();};
+        card.appendChild(btn);
+        renderPhotos(card);
+      });
+      await updateRecap();
+    }).catch(()=>{ /* IndexedDB unavailable */ });
+
+    // ---- Recap slideshow / recording ----
+    const canvas=document.getElementById('recapCanvas');
+    const ctx=canvas.getContext('2d');
+    const player=document.getElementById('player');
+    const pstatus=document.getElementById('playerStatus');
+    const W=canvas.width,H=canvas.height;
+
+    function loadImg(src){return new Promise(r=>{const im=new Image();im.onload=()=>r(im);im.src=src;});}
+    function drawCover(im){ const r=Math.max(W/im.width,H/im.height);
+      const w=im.width*r,h=im.height*r; ctx.drawImage(im,(W-w)/2,(H-h)/2,w,h); }
+    function caption(text,alpha){
+      ctx.save(); ctx.globalAlpha=alpha;
+      const g=ctx.createLinearGradient(0,H-260,0,H); g.addColorStop(0,'rgba(0,0,0,0)');g.addColorStop(1,'rgba(0,0,0,.75)');
+      ctx.fillStyle=g; ctx.fillRect(0,H-260,W,260);
+      ctx.fillStyle='#fff'; ctx.font='bold 52px "Noto Sans TC",sans-serif'; ctx.textAlign='center';
+      ctx.fillText(text.slice(0,18),W/2,H-90); ctx.restore();
+    }
+    function titleCard(alpha){
+      ctx.fillStyle='#0e7490'; ctx.fillRect(0,0,W,H);
+      ctx.save(); ctx.globalAlpha=alpha; ctx.fillStyle='#fff'; ctx.textAlign='center';
+      ctx.font='bold 84px "Noto Sans TC",sans-serif'; ctx.fillText('花蓮三天兩夜',W/2,H/2-30);
+      ctx.font='40px "Noto Sans TC",sans-serif'; ctx.fillText('2026 / 6/19 – 6/21',W/2,H/2+50);
+      ctx.font='32px "Noto Sans TC",sans-serif'; ctx.fillText('🌊 我們的回顧',W/2,H/2+120); ctx.restore();
+    }
+
+    let playing=false;
+    async function runRecap(recorder){
+      const photos=await allPhotos();
+      if(!photos.length){ alert('還沒有照片喔！沿途先在景點按「📷 加照片」'); return false; }
+      playing=true; player.classList.add('show');
+      const imgs=[]; for(const p of photos){ imgs.push({im:await loadImg(p.data),label:p.label}); }
+      const PER=1800, FADE=400;
+      if(recorder) recorder.start();
+      // intro
+      const introMs=1600;
+      await animate(introMs,(t)=>{ const a=Math.min(1,t/400); titleCard(a); });
+      // slides
+      for(const s of imgs){
+        await animate(PER,(t)=>{
+          ctx.fillStyle='#000'; ctx.fillRect(0,0,W,H);
+          drawCover(s.im);
+          // dark fade at edges of clip
+          if(t<FADE){ctx.save();ctx.globalAlpha=1-t/FADE;ctx.fillStyle='#000';ctx.fillRect(0,0,W,H);ctx.restore();}
+          else if(t>PER-FADE){ctx.save();ctx.globalAlpha=1-(PER-t)/FADE;ctx.fillStyle='#000';ctx.fillRect(0,0,W,H);ctx.restore();}
+          caption(s.label, t<FADE?t/FADE:1);
+        });
+        if(!playing) break;
+      }
+      // outro
+      await animate(1500,(t)=>{ titleCard(1); ctx.save();ctx.globalAlpha=Math.min(1,t/400);
+        ctx.fillStyle='#fff';ctx.font='36px "Noto Sans TC",sans-serif';ctx.textAlign='center';
+        ctx.fillText('謝謝你們，下次見！',W/2,H/2+200);ctx.restore(); });
+      if(recorder) recorder.stop();
+      playing=false;
+      return true;
+    }
+    function animate(dur,draw){return new Promise(res=>{
+      let start=null;
+      function frame(ts){ if(start==null)start=ts; const t=ts-start;
+        draw(Math.min(t,dur));
+        if(t<dur && playing){ requestAnimationFrame(frame); } else res(); }
+      requestAnimationFrame(frame);
+    });}
+
+    document.getElementById('playRecap').onclick=()=>{ pstatus.textContent='播放中…'; runRecap(null).then(()=>{pstatus.textContent='';}); };
+    document.getElementById('playerClose').onclick=()=>{ playing=false; player.classList.remove('show'); };
+
+    document.getElementById('dlRecap').onclick=async()=>{
+      if(!canvas.captureStream || !window.MediaRecorder){ alert('此瀏覽器不支援影片錄製，請用最新版 Chrome/Safari'); return; }
+      const stream=canvas.captureStream(30);
+      let mime='video/webm;codecs=vp9'; if(!MediaRecorder.isTypeSupported(mime)) mime='video/webm;codecs=vp8';
+      if(!MediaRecorder.isTypeSupported(mime)) mime='video/webm';
+      const chunks=[]; const rec=new MediaRecorder(stream,{mimeType:mime,videoBitsPerSecond:6000000});
+      rec.ondataavailable=e=>{ if(e.data.size)chunks.push(e.data); };
+      rec.onstop=()=>{ const blob=new Blob(chunks,{type:'video/webm'});
+        const url=URL.createObjectURL(blob); const a=document.createElement('a');
+        a.href=url; a.download='花蓮回顧.webm'; a.click(); URL.revokeObjectURL(url);
+        pstatus.textContent='✅ 影片已下載'; setTimeout(()=>{player.classList.remove('show');pstatus.textContent='';},1500); };
+      pstatus.textContent='🔴 錄製中，請勿關閉…';
+      await runRecap(rec);
+    };
   })();
 </script>
 </body>
