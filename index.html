@@ -271,10 +271,11 @@
     <button class="reset" id="preset">清除全部勾選</button>
   </div>
 
-  <div class="recap-card" id="recapCard" style="margin-top:12px;display:none">
+  <div class="recap-card" id="recapCard" style="margin-top:12px">
     <h3>🎬 旅程回顧</h3>
-    <p>在<b>行程卡、美食、咖啡</b>任一店家按「📷 去過了·加照片」，旅程結束就能播放／下載回顧影片！目前已收集 <b id="phcount">0</b> 張照片。</p>
+    <p>在<b>行程卡、美食、咖啡</b>任一店家按「📷 去過了·加照片」；吃替代餐廳或路上臨時發現的店，用下方「➕ 自由打卡」也能加！目前已收集 <b id="phcount">0</b> 張照片。</p>
     <div class="rbtns">
+      <button id="freeCheckin" style="background:#fff;color:#7c3aed">➕ 自由打卡</button>
       <button id="playRecap">▶️ 播放回顧</button>
       <button id="dlRecap">⬇️ 下載影片</button>
     </div>
@@ -1057,7 +1058,17 @@
     async function updateRecap(){
       const all=await allPhotos();
       phcount.textContent=all.length;
-      recapCard.style.display = all.length>0 ? 'block':'none';
+    }
+
+    // 自由打卡：輸入店名 → 選照片（不綁卡片，給替代餐廳/臨時發現的店用）
+    const freeBtn=document.getElementById('freeCheckin');
+    if(freeBtn){
+      freeBtn.addEventListener('click',()=>{
+        const name=prompt('打卡地點名稱（例：望海巴耐、路邊發現的店）');
+        if(!name||!name.trim())return;
+        pending={key:'free_'+name.trim().slice(0,30),label:name.trim(),cardEl:null};
+        photoInput.click();
+      });
     }
 
     photoInput.addEventListener('change', async()=>{
@@ -1069,7 +1080,8 @@
           await addPhoto({key:pending.key,label:pending.label,data:data});
         }catch(e){ fail++; }
       }
-      try{ await renderPhotos(pending.cardEl); await updateRecap(); }catch(e){}
+      try{ if(pending.cardEl) await renderPhotos(pending.cardEl); await updateRecap(); }catch(e){}
+      if(pending && !pending.cardEl && !fail) alert('✅ 已為「'+pending.label+'」加入 '+files.length+' 張照片，會進回顧影片');
       if(fail) alert(fail+' 張照片處理失敗，請再試一次');
       photoInput.value=''; pending=null;
     });
