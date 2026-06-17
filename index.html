@@ -100,6 +100,29 @@
     border:1px solid #fde68a}
   .note.warn{color:#b91c1c;background:#fef2f2;border-color:#fecaca}
 
+  /* ===== Alternatives (替代方案) ===== */
+  details.alt{margin-top:10px;border:1px dashed #cbd5e1;border-radius:11px;overflow:hidden;background:#fcfdfe}
+  details.alt summary{padding:9px 12px;font-size:13px;font-weight:700;color:var(--brand);cursor:pointer;
+    list-style:none;display:flex;align-items:center;gap:6px}
+  details.alt summary::-webkit-details-marker{display:none}
+  details.alt summary::after{content:"切換 ▾";margin-left:auto;font-size:11px;color:var(--sub);font-weight:600}
+  details.alt[open] summary::after{content:"收合 ▴"}
+  details.alt .alt-body{padding:2px 12px 11px}
+  .alt-item{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:8px 0;
+    border-top:1px solid var(--line)}
+  .alt-item:first-child{border-top:none}
+  .alt-item .ai{min-width:0}
+  .alt-item .ai b{font-size:13.5px;font-weight:700}
+  .alt-item .ai span{display:block;font-size:11.5px;color:var(--sub);margin-top:1px}
+  .alt-item a.mini{flex-shrink:0;background:#34a853;color:#fff;font-size:12px;font-weight:700;
+    text-decoration:none;padding:7px 11px;border-radius:9px}
+  .alt-item a.mini:active{transform:scale(.96)}
+
+  .leg{position:relative;margin:-4px 0 10px;padding:3px 0 3px 4px;font-size:12px;font-weight:600;
+    color:var(--sub);display:flex;align-items:center;gap:6px}
+  .leg::before{content:"";position:absolute;left:-17px;top:0;bottom:0;width:2px;
+    background:repeating-linear-gradient(var(--sub) 0 4px,transparent 4px 8px);opacity:.5}
+
   .btns{display:flex;gap:8px;margin-top:11px;flex-wrap:wrap}
   .btn{flex:1;min-width:130px;display:inline-flex;align-items:center;justify-content:center;gap:6px;
     padding:11px 10px;border-radius:12px;font-size:13.5px;font-weight:700;text-decoration:none;
@@ -185,9 +208,22 @@
 
       <div class="item move">
         <div class="card">
+          <span class="time">🚄 12:00 → 14:44 抵達</span>
+          <h3>普悠瑪 224 · 台北→花蓮<span class="tag">去程</span></h3>
+          <div class="meta">2026/6/19（五）12:00 台北發 · 14:44 到花蓮 · 4 張票</div>
+          <div class="rec">下車走出站即達租車點（火車站東出口正對面）</div>
+        </div>
+      </div>
+
+      <div class="leg">🚶 出站步行約 2 分到租車點</div>
+
+      <div class="item move">
+        <div class="card">
           <span class="time">⏰ 15:00</span>
           <h3>行易租車（站前店）<span class="tag">取車</span></h3>
-          <div class="meta">花蓮市國聯一路43號 · 火車站東出口正對面約100m</div>
+          <div class="meta">花蓮市國聯一路43號 · 火車站東出口正對面約100m · ☎ 03-831-1616</div>
+          <div class="rec">🛡️ <b>租車保險已投保</b>（吉時保）· 投保人 朱*之 · 6/19 15:00–6/21 15:00 · 含車體碰撞/第三人/乘客責任 · 客服 0800-369-168</div>
+          <div class="note">事故時備：駕照、行照、道路交通事故當事人登記聯單，至保戶專區理賠通報</div>
           <div class="btns">
             <a class="btn btn-g" href="https://www.google.com/maps/search/?api=1&query=行易租車+花蓮市國聯一路43號" target="_blank">Google 導航</a>
             <a class="btn btn-a" href="https://maps.apple.com/?q=行易租車&address=花蓮市國聯一路43號" target="_blank">Apple 地圖</a>
@@ -196,20 +232,7 @@
         </div>
       </div>
 
-      <div class="item food">
-        <div class="card">
-          <span class="time">🛍️ 取車後順路</span>
-          <h3>一芳蛋黃酥<span class="tag must">伴手禮</span></h3>
-          <div class="meta">花蓮市國聯五路203號（離租車點超近）</div>
-          <div class="rec"><b>推薦：</b>蛋黃酥、土鳳梨酥（師傅自稱前不二坊師傅）</div>
-          <div class="note">建議先電話訂貨，假日易滿單</div>
-          <div class="btns">
-            <a class="btn btn-g" href="https://www.google.com/maps/search/?api=1&query=一芳蛋黃酥+花蓮市國聯五路203號" target="_blank">Google 導航</a>
-            <a class="btn btn-a" href="https://maps.apple.com/?q=一芳蛋黃酥+花蓮市國聯五路203號" target="_blank">Apple 地圖</a>
-            <a class="btn btn-tel" href="tel:0958450344">📞</a>
-          </div>
-        </div>
-      </div>
+      <div class="leg">🚗 約 30 分 · 18 km（往壽豐）</div>
 
       <div class="item food">
         <div class="card">
@@ -226,6 +249,8 @@
         </div>
       </div>
 
+      <div class="leg">🚗 約 5 分 · 2 km（壽豐鄉內）</div>
+
       <div class="item food">
         <div class="card">
           <span class="time">☕ 16:00–17:00</span>
@@ -240,20 +265,32 @@
         </div>
       </div>
 
+      <div class="leg">🚗 約 15 分 · 11 km（往吉安）</div>
+
       <div class="item food">
         <div class="card">
           <span class="time">🍽️ 晚餐</span>
           <h3>壽豐小吃 · 慶豐店<span class="tag kid">親子友善</span></h3>
           <div class="meta"><span class="stars">★ 4.8</span>（3000+則）· <span class="price">$300–500/人</span> · 吉安中山路三段318號</div>
           <div class="rec"><b>必點：</b>無骨鵝肉、無骨鵝滷飯、蘭陽西魯肉、鮮蝦卵蛋炒飯、巴西蘑菇雞湯（有冷氣、適合小孩）</div>
-          <div class="note">🔴 週三公休 · 不可訂位、現場候位。<b>備案：055龍蝦海鮮（要先訂位）</b></div>
+          <div class="note">🔴 週三公休 · 不可訂位、現場候位</div>
           <div class="btns">
             <a class="btn btn-g" href="https://www.google.com/maps/search/?api=1&query=壽豐小吃+慶豐店+吉安中山路三段318號" target="_blank">Google 導航</a>
             <a class="btn btn-a" href="https://maps.apple.com/?q=壽豐小吃慶豐店+吉安中山路三段318號" target="_blank">Apple 地圖</a>
             <a class="btn btn-tel" href="tel:038536082">📞</a>
           </div>
+          <details class="alt">
+            <summary>🔄 晚餐替代方案（3 選）</summary>
+            <div class="alt-body">
+              <div class="alt-item"><div class="ai"><b>055龍蝦海鮮</b><span>★4.2 · 現撈龍蝦 · 鹽寮村132號 · 訂位03-8671055(LINE同號) · 🔴週三休</span></div><a class="mini" href="https://www.google.com/maps/search/?api=1&query=055龍蝦海鮮餐廳+壽豐鄉鹽寮村132號" target="_blank">導航</a></div>
+              <div class="alt-item"><div class="ai"><b>望海巴耐</b><span>★4.3 · 原民風味＋海景第一排 · 壽豐鹽寮</span></div><a class="mini" href="https://www.google.com/maps/search/?api=1&query=望海巴耐+壽豐鹽寮大橋22號" target="_blank">導航</a></div>
+              <div class="alt-item"><div class="ai"><b>英倫西餐廳</b><span>★4.2 · Buffet排餐 · 小孩選擇多 · 鹽寮</span></div><a class="mini" href="https://www.google.com/maps/search/?api=1&query=英倫西餐廳+壽豐鹽寮" target="_blank">導航</a></div>
+            </div>
+          </details>
         </div>
       </div>
+
+      <div class="leg">🚗 約 12 分 · 7 km（回花蓮市區）</div>
 
       <div class="item move">
         <div class="card">
@@ -295,6 +332,8 @@
         </div>
       </div>
 
+      <div class="leg">🚗 約 10 分 · 5 km（往花蓮港）</div>
+
       <div class="item play">
         <div class="card">
           <span class="time">🐋 09:50 報到 / 10:30 出航</span>
@@ -310,33 +349,49 @@
         </div>
       </div>
 
+      <div class="leg">🚶 林記魚丸就在港內 · 或 🚗 10 分回美崙</div>
+
       <div class="item food">
         <div class="card">
           <span class="time">🍜 約 13:00 午餐</span>
           <h3>林記魚丸 / 美崙麵店<span class="tag">下船就近</span></h3>
           <div class="meta">港邊：林記魚丸（港濱路37號）· 或回美崙：劉姥姥、128清燉牛羊肉麵</div>
-          <div class="rec"><b>林記：</b>Q彈魚丸湯、鱰米粉、炸魚排 ($150–250)<br><b>劉姥姥：</b>眷村炒滷味、麻醬麵（有貓，小孩會喜歡）<br><b>128：</b>清燉牛/羊肉麵，湯可免費續 🔴週三休</div>
+          <div class="rec"><b>首選 林記魚丸：</b>港內最近，Q彈魚丸湯、鱰米粉、炸魚排（$150–250），下船步行即到</div>
           <div class="btns">
-            <a class="btn btn-g" href="https://www.google.com/maps/search/?api=1&query=林記魚丸+花蓮市港濱路" target="_blank">Google 林記</a>
-            <a class="btn btn-g" href="https://www.google.com/maps/search/?api=1&query=劉姥姥麵店+花蓮市華廈街61-1號" target="_blank">Google 劉姥姥</a>
-            <a class="btn btn-g" href="https://www.google.com/maps/search/?api=1&query=128清燉牛羊肉拉麵店+花蓮市民權路128號" target="_blank">Google 128</a>
+            <a class="btn btn-g" href="https://www.google.com/maps/search/?api=1&query=林記魚丸+花蓮市港濱路" target="_blank">Google 導航</a>
+            <a class="btn btn-a" href="https://maps.apple.com/?q=林記魚丸+花蓮市港濱路" target="_blank">Apple 地圖</a>
           </div>
+          <details class="alt">
+            <summary>🔄 午餐替代方案（回美崙）</summary>
+            <div class="alt-body">
+              <div class="alt-item"><div class="ai"><b>劉姥姥麵店</b><span>眷村炒滷味、麻醬麵、油蔥拌麵 · 華廈街61-1號 · 店小建議外帶 · 🔴週日一休</span></div><a class="mini" href="https://www.google.com/maps/search/?api=1&query=劉姥姥麵店+花蓮市華廈街61-1號" target="_blank">導航</a></div>
+              <div class="alt-item"><div class="ai"><b>128清燉牛羊肉麵</b><span>清燉湯鮮、湯可免費續 · 民權路128號 · 🔴週三休</span></div><a class="mini" href="https://www.google.com/maps/search/?api=1&query=128清燉牛羊肉拉麵店+花蓮市民權路128號" target="_blank">導航</a></div>
+              <div class="alt-item"><div class="ai"><b>欣欣麵館</b><span>★4.3 · 海鮮龍蝦火鍋 · 要訂位＋收現金 · 🔴週一休</span></div><a class="mini" href="https://www.google.com/maps/search/?api=1&query=欣欣麵館+花蓮市民國路125號" target="_blank">導航</a></div>
+              <div class="alt-item"><div class="ai"><b>定置漁場三代目</b><span>魚湯拉麵 · 120cm以下免低消 · 親子友善</span></div><a class="mini" href="https://www.google.com/maps/search/?api=1&query=定置漁場三代目+將軍府" target="_blank">導航</a></div>
+            </div>
+          </details>
         </div>
       </div>
+
+      <div class="leg">🚗 約 25 分 · 16 km（沿台11線往南，看海）</div>
 
       <div class="item play">
         <div class="card">
           <span class="time">🐐 下午</span>
           <h3>月崖灣親子農場<span class="tag kid">餵動物·首選</span></h3>
-          <div class="meta">海景萌系農場 · 日式紅色鳥居 · 壽豐鹽寮（海洋公園南下3km，台11線）</div>
-          <div class="rec"><b>玩法：</b>餵羊、餵小動物＋看海拍鳥居。下船往南開順路，回程接壽豐晚餐＋豐春甘蔗冰</div>
+          <div class="meta">海景萌系農場 · 千本鳥居 · 壽豐鄉鹽寮村鹽寮179號 · 09:00–18:00（全年無休）</div>
+          <div class="rec"><b>玩法：</b>近距離餵山羌、水豚、羊＋免費和服拍鳥居。<b>門票全票200（可抵100消費）、未滿120cm 100元、2歲以下免費</b>。有停車場</div>
           <div class="note">備案：媽媽農場（吉安・免門票・有馬）／ 立川漁場（摸蜆＋蜆仔霜淇淋）</div>
           <div class="btns">
-            <a class="btn btn-g" href="https://www.google.com/maps/search/?api=1&query=月崖灣親子農場+壽豐鹽寮" target="_blank">Google 導航</a>
-            <a class="btn btn-a" href="https://maps.apple.com/?q=月崖灣親子農場+壽豐" target="_blank">Apple 地圖</a>
+            <a class="btn btn-g" href="https://www.google.com/maps/search/?api=1&query=月崖灣親子農場+壽豐鄉鹽寮村鹽寮179號" target="_blank">Google 導航</a>
+            <a class="btn btn-a" href="https://maps.apple.com/?q=月崖灣親子農場+壽豐鄉鹽寮179號" target="_blank">Apple 地圖</a>
+            <a class="btn btn-tel" href="tel:038671108">📞</a>
           </div>
+          <div class="note">可順吃 🍧 <b>豐春甘蔗冰</b>（同壽豐方向）</div>
         </div>
       </div>
+
+      <div class="leg">🚗 約 25 分 · 18 km（回吉安／市區）</div>
 
       <div class="item food">
         <div class="card">
@@ -344,13 +399,25 @@
           <h3>龍哥斯特 海鮮餐廳<span class="tag book">可訂位</span><span class="tag kid">圓桌適合</span></h3>
           <div class="meta"><span class="stars">★ 4.5</span> · <span class="price">$600–1000/人</span> · 吉安鄉中央路三段458號</div>
           <div class="rec"><b>必吃：</b>紅蟳粉絲煲、現流海魚、日式生魚片、焗蒜味扇貝、日式海鮮鍋。主廚漁民第三代＋與賞鯨船隊合作，主題超搭，可安排圓桌</div>
-          <div class="note">可線上訂位（僅開放隔天）· 無停車場。<b>親子備案：養鍋龍蝦火鍋（中山店）／ 欣欣麵館（要訂位・收現金）</b></div>
+          <div class="note">🔴 週四公休（6/20週六OK）· 可線上訂位（僅開放隔天）· 無停車場</div>
           <div class="btns">
             <a class="btn btn-g" href="https://www.google.com/maps/search/?api=1&query=龍哥斯特+吉安鄉中央路三段458號" target="_blank">Google 導航</a>
             <a class="btn btn-a" href="https://maps.apple.com/?q=龍哥斯特+吉安鄉中央路三段458號" target="_blank">Apple 地圖</a>
+            <a class="btn btn-tel" href="tel:038575000">📞</a>
           </div>
+          <details class="alt">
+            <summary>🔄 晚餐替代方案（老時光已客滿）</summary>
+            <div class="alt-body">
+              <div class="alt-item"><div class="ai"><b>養鍋（中山店）</b><span>★4.3 · A級龍蝦火鍋、海陸 · 親子鍋物 · $600–900</span></div><a class="mini" href="https://www.google.com/maps/search/?api=1&query=養鍋+花蓮市中山路549-1號" target="_blank">導航</a></div>
+              <div class="alt-item"><div class="ai"><b>欣欣麵館</b><span>★4.3 · 龍蝦火鍋、生魚片 · 要訂位＋收現金 · 🔴週一休</span></div><a class="mini" href="https://www.google.com/maps/search/?api=1&query=欣欣麵館+花蓮市民國路125號" target="_blank">導航</a></div>
+              <div class="alt-item"><div class="ai"><b>旺福 kitchen woow</b><span>★4.5 · 義式老宅、舒芙蕾 · 小孩友善 · 🔴週四休</span></div><a class="mini" href="https://www.google.com/maps/search/?api=1&query=旺福kitchen+woow+花蓮市復興街78號" target="_blank">導航</a></div>
+              <div class="alt-item"><div class="ai"><b>菊川和風食堂</b><span>★4.5 · 平價蛋包飯、唐揚雞 · $150–300 · 🔴週四休</span></div><a class="mini" href="https://www.google.com/maps/search/?api=1&query=菊川和風食堂+花蓮市南京街211號" target="_blank">導航</a></div>
+            </div>
+          </details>
         </div>
       </div>
+
+      <div class="leg">🚗 約 10 分回山禾曙旅宿休息</div>
 
     </div>
   </section>
@@ -376,6 +443,8 @@
           </div>
         </div>
       </div>
+
+      <div class="leg">🚗 約 10 分回民宿</div>
 
       <div class="item move">
         <div class="card">
@@ -407,26 +476,62 @@
       <div class="item food">
         <div class="card">
           <span class="time">🍽️ 午餐</span>
-          <h3>美崙午餐（擇一）<span class="tag kid">親子</span></h3>
-          <div class="meta">榮春小吃 · 劉姥姥 · 異舍（平價義式・水果茶）· 王記茶舖美崙店（網美茶館・有停車場）</div>
-          <div class="rec"><b>異舍：</b>義大利麵、水果茶（小孩友善）<br><b>王記茶舖：</b>肉燥乾麵、麻辣牛肉麵、天婦羅，空間舒適可久坐</div>
+          <h3>異舍廚坊（首選）<span class="tag kid">親子</span></h3>
+          <div class="meta">平價義式 · 花蓮市民德四街35號 · 11:30–15:00、17:30–21:00（🔴週二三休，週日OK）</div>
+          <div class="rec"><b>推薦：</b>義大利麵、燉飯、水果茶。學生最愛高CP值、小孩接受度高，吃完輕鬆趕火車。<b>無提供電話訂位</b></div>
           <div class="btns">
-            <a class="btn btn-g" href="https://www.google.com/maps/search/?api=1&query=王記茶舖美崙店+花蓮市民權路95號" target="_blank">Google 王記茶舖</a>
-            <a class="btn btn-g" href="https://www.google.com/maps/search/?api=1&query=異舍+花蓮美崙" target="_blank">Google 異舍</a>
+            <a class="btn btn-g" href="https://www.google.com/maps/search/?api=1&query=異舍廚坊+花蓮市民德四街35號" target="_blank">Google 導航</a>
+            <a class="btn btn-a" href="https://maps.apple.com/?q=異舍廚坊+花蓮市民德四街35號" target="_blank">Apple 地圖</a>
+          </div>
+          <details class="alt">
+            <summary>🔄 午餐替代方案（皆確認週日有開）</summary>
+            <div class="alt-body">
+              <div class="alt-item"><div class="ai"><b>王記茶舖（美崙店）</b><span>網美茶館 · 肉燥乾麵、麻辣牛肉麵、天婦羅 · 民權路95號 · 有停車場、無公休</span></div><a class="mini" href="https://www.google.com/maps/search/?api=1&query=王記茶舖美崙店+花蓮市民權路95號" target="_blank">導航</a></div>
+              <div class="alt-item"><div class="ai"><b>定置漁場三代目（將軍府店）</b><span>魚湯拉麵 · 120cm以下免低消 · 可線上訂位</span></div><a class="mini" href="https://www.google.com/maps/search/?api=1&query=定置漁場三代目+將軍府" target="_blank">導航</a></div>
+              <div class="alt-item"><div class="ai"><b>菊川和風食堂</b><span>平價蛋包飯、唐揚雞 · 南京街211號 · 小孩友善（🔴週四休）</span></div><a class="mini" href="https://www.google.com/maps/search/?api=1&query=菊川和風食堂+花蓮市南京街211號" target="_blank">導航</a></div>
+            </div>
+          </details>
+          <div class="note warn">⚠️ 劉姥姥、榮春🔴週日公休，6/21 吃不到，已從首選移除</div>
+        </div>
+      </div>
+
+      <div class="leg">🚗 還車前順路（國聯五路，緊鄰租車點）</div>
+
+      <div class="item food">
+        <div class="card">
+          <span class="time">🛍️ 還車前</span>
+          <h3>一芳蛋黃酥<span class="tag must">伴手禮</span></h3>
+          <div class="meta">花蓮市國聯五路203號（離租車點走路就到）</div>
+          <div class="rec"><b>推薦：</b>蛋黃酥、土鳳梨酥（師傅自稱前不二坊師傅）。買了直接帶上火車</div>
+          <div class="note">建議先電話訂貨，假日易滿單</div>
+          <div class="btns">
+            <a class="btn btn-g" href="https://www.google.com/maps/search/?api=1&query=一芳蛋黃酥+花蓮市國聯五路203號" target="_blank">Google 導航</a>
+            <a class="btn btn-a" href="https://maps.apple.com/?q=一芳蛋黃酥+花蓮市國聯五路203號" target="_blank">Apple 地圖</a>
+            <a class="btn btn-tel" href="tel:0958450344">📞</a>
           </div>
         </div>
       </div>
+
+      <div class="leg">🚗 約 3 分 · 1 km 到租車點</div>
 
       <div class="item move">
         <div class="card">
           <span class="time">⛽ 約 15:40 還車</span>
           <h3>行易租車還車 → 花蓮站<span class="tag book">記得加滿油</span></h3>
           <div class="meta">還車後步行至花蓮站（正對面）</div>
-          <div class="note warn">🚄 <b>16:23 花蓮站火車返台北</b>，請提前到站、預留還車與安檢時間</div>
           <div class="btns">
             <a class="btn btn-g" href="https://www.google.com/maps/search/?api=1&query=花蓮車站" target="_blank">Google 花蓮站</a>
             <a class="btn btn-a" href="https://maps.apple.com/?q=花蓮車站" target="_blank">Apple 地圖</a>
           </div>
+        </div>
+      </div>
+
+      <div class="item move">
+        <div class="card">
+          <span class="time">🚄 16:23 → 19:25 台北</span>
+          <h3>自強 181（山線）· 花蓮→台北<span class="tag">回程</span></h3>
+          <div class="meta">2026/6/21（日）16:23 花蓮發 · 19:25 到台北</div>
+          <div class="note warn">請於 16:00 前到站，預留還車、取行李與驗票時間</div>
         </div>
       </div>
 
@@ -459,14 +564,14 @@
     <div style="margin:18px 0 8px;font-size:14px;font-weight:800;color:var(--sun)">🍱 在地 / 親子友善</div>
     <div class="reco-grid">
       <div class="reco">
-        <div class="top"><div><h4>定置漁場三代目 <span class="rank" style="background:var(--sun)">1</span></h4><div class="type">魚湯拉麵 · ★4.4 · $250–450/人 · 將軍府店可訂位</div></div></div>
-        <div class="desc">海鮮湯泡飯、魚白湯拉麵、海鮮剝皮辣椒麵線。12小時內漁場到餐桌，低消350/人（120cm以下免低消）</div>
-        <div class="btns"><a class="btn btn-g" href="https://www.google.com/maps/search/?api=1&query=定置漁場三代目+將軍府" target="_blank">Google 導航</a></div>
+        <div class="top"><div><h4>定置漁場三代目 <span class="rank" style="background:var(--sun)">1</span></h4><div class="type">魚湯拉麵 · ★4.4 · $250–450/人 · 將軍府店可線上訂位</div></div></div>
+        <div class="desc">海鮮湯泡飯、魚白湯拉麵、海鮮剝皮辣椒麵線。花蓮市中正路622巷2號H1棟（將軍府1936），低消350/人（120cm以下免低消）</div>
+        <div class="btns"><a class="btn btn-g" href="https://www.google.com/maps/search/?api=1&query=定置漁場三代目+花蓮市中正路622巷2號" target="_blank">Google 導航</a></div>
       </div>
       <div class="reco">
-        <div class="top"><div><h4>安口食堂 <span class="rank" style="background:var(--sun)">2</span></h4><div class="type">老宅定食 · ★4.5 · $300–450/人 · QR候位</div></div></div>
-        <div class="desc">飄香牛、好吃雞/美味豬/新鮮魚定食（附柴魚白飯、溏心蛋）。七星潭柴魚博物館旁，建議提早</div>
-        <div class="btns"><a class="btn btn-g" href="https://www.google.com/maps/search/?api=1&query=安口食堂+壽豐壽豐路一段3號" target="_blank">Google 導航</a></div>
+        <div class="top"><div><h4>安口食堂 <span class="rank" style="background:var(--sun)">2</span></h4><div class="type">老宅定食 · ★4.5 · $300–450/人 · 預約制 🔴週二三四休</div></div></div>
+        <div class="desc">飄香牛、好吃雞/美味豬/新鮮魚定食（附柴魚白飯、溏心蛋）。新城鄉七星街150巷1號（七星潭柴魚博物館內巷弄），建議先預約 0909-536255</div>
+        <div class="btns"><a class="btn btn-g" href="https://www.google.com/maps/search/?api=1&query=安口食堂+新城鄉七星街150巷1號" target="_blank">Google 導航</a><a class="btn btn-tel" href="tel:0909536255">📞</a></div>
       </div>
       <div class="reco">
         <div class="top"><div><h4>菊川和風食堂 <span class="rank" style="background:var(--sun)">3</span></h4><div class="type">平價日式 · ★4.5 · $150–300/人</div></div></div>
@@ -478,9 +583,9 @@
     <div style="margin:18px 0 8px;font-size:14px;font-weight:800;color:var(--leaf)">🍰 甜點 / 小吃 / 排隊</div>
     <div class="reco-grid">
       <div class="reco">
-        <div class="top"><div><h4>公正包子</h4><div class="type">小籠包 · ★4.2（近2萬則）· $50–150</div></div></div>
-        <div class="desc">小籠包$7/顆、蒸餃、肉羹麵。花蓮評論數霸主</div>
-        <div class="btns"><a class="btn btn-g" href="https://www.google.com/maps/search/?api=1&query=公正包子+花蓮市仁愛街46號" target="_blank">Google 導航</a></div>
+        <div class="top"><div><h4>公正包子</h4><div class="type">小籠包 · ★4.2（近2萬則）· $50–150 · 09:20–21:00</div></div></div>
+        <div class="desc">小籠包$7/顆、蒸餃、肉羹麵。花蓮評論數霸主 · 仁愛街46號 · 03-834-2933</div>
+        <div class="btns"><a class="btn btn-g" href="https://www.google.com/maps/search/?api=1&query=公正包子+花蓮市仁愛街46號" target="_blank">Google 導航</a><a class="btn btn-tel" href="tel:038342933">📞</a></div>
       </div>
       <div class="reco">
         <div class="top"><div><h4>玉里橋頭臭豆腐</h4><div class="type">臭豆腐 · ★4.3 · $60–120 · 無公休</div></div></div>
@@ -504,7 +609,15 @@
     </details>
     <details class="faq">
       <summary>📅 公休日地雷（避免撲空）</summary>
-      <div class="body">慶豐店/小和好點/055/埔心… <b>週三</b>類多；豐春<b>週二</b>休、只賣夏天；文華蛋餅<b>週一</b>休；128麵<b>週三</b>休；液香扁食<b>週日</b>休（6/21吃不到）；Gaston+Gaby 酸麵包<b>週六日休</b>（只能6/19買）。</div>
+      <div class="body">
+        <b>週二休：</b>豐春甘蔗冰（且只賣夏天）<br>
+        <b>週三休：</b>慶豐店、055龍蝦、128清燉牛羊肉麵<br>
+        <b>週三、四休：</b>小和好點（建議出發前看IG公告）<br>
+        <b>週四休：</b>龍哥斯特、旺福、菊川食堂<br>
+        <b>週一休：</b>文華蛋餅、欣欣麵館<br>
+        <b>週日（一）休：</b>劉姥姥、榮春、液香扁食 → <span style="color:#b91c1c">6/21 都吃不到</span><br>
+        <b>週六日休：</b>Gaston+Gaby 酸麵包（只能6/19買）
+      </div>
     </details>
     <details class="faq">
       <summary>👶 3歲小孩 tips</summary>
@@ -512,7 +625,7 @@
     </details>
     <details class="faq">
       <summary>🚗 自駕 / 時間</summary>
-      <div class="body">花蓮市區到花蓮港約10–15分；市區到壽豐約30–40分。6/19 三點才取車，豐春甘蔗冰建議改 6/20 下午。6/21 還車記得<b>加滿油</b>，預留時間趕 16:23 火車。</div>
+      <div class="body">花蓮市區到花蓮港約10–15分；市區到壽豐約30–40分。6/19 三點才取車，豐春甘蔗冰建議改 6/20 下午。<b>🛡️ 租車保險（吉時保）期間 6/19 15:00–6/21 15:00</b>，還車記得在保險到期前、並<b>加滿油</b>，預留時間趕 16:23 火車。</div>
     </details>
   </section>
 
