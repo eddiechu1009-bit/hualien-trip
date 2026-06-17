@@ -131,11 +131,14 @@
   .chk svg{width:16px;height:16px;stroke:#cbd5e1;fill:none;stroke-width:3;transition:.18s}
   .chk:active{transform:scale(.88)}
   .card h3{padding-right:36px}
-  .card.done{opacity:.62}
+  .card.done{opacity:.72;padding-top:12px;padding-bottom:12px}
   .card.done .chk{background:var(--leaf);border-color:var(--leaf)}
   .card.done .chk svg{stroke:#fff}
-  .card.done h3{text-decoration:line-through;text-decoration-color:var(--leaf);text-decoration-thickness:2px}
+  .card.done h3{text-decoration:line-through;text-decoration-color:var(--leaf);text-decoration-thickness:2px;
+    margin:0;font-size:15px}
   .item.done::before{background:var(--leaf);border-color:var(--leaf)}
+  /* 完成後收合：只留標題＋勾選鈕，其餘隱藏（再點一下可展開） */
+  .card.done > *:not(h3):not(.chk){display:none !important}
 
   /* progress bar */
   .progress{background:var(--card);border-radius:14px;padding:13px 16px;box-shadow:var(--shadow);
