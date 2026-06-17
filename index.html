@@ -154,6 +154,10 @@
   .addph:active{transform:scale(.97)}
   .item.food .addph{color:var(--sun);background:#fff0e6}
   .item.play .addph{color:var(--leaf);background:#e7f5ec}
+  .reco .addph{margin-top:9px;font-size:12px;padding:7px 11px}
+  .reco{position:relative}
+  .reco.done{opacity:.6}
+  .reco.done h4::before{content:"✅ ";}
 
   /* ===== Recap (回顧影片) ===== */
   .recap-card{background:linear-gradient(135deg,#7c3aed,#ec4899);color:#fff;border-radius:var(--r);
@@ -264,7 +268,7 @@
 
   <div class="recap-card" id="recapCard" style="margin-top:12px;display:none">
     <h3>🎬 旅程回顧</h3>
-    <p>沿途在各景點按「📷 加照片」，旅程結束就能播放／下載回顧影片！目前已收集 <b id="phcount">0</b> 張照片。</p>
+    <p>在<b>行程卡、美食、咖啡</b>任一店家按「📷 去過了·加照片」，旅程結束就能播放／下載回顧影片！目前已收集 <b id="phcount">0</b> 張照片。</p>
     <div class="rbtns">
       <button id="playRecap">▶️ 播放回顧</button>
       <button id="dlRecap">⬇️ 下載影片</button>
@@ -909,12 +913,14 @@
 </main>
 
 <nav class="quickbar">
-  <a href="#day1"><span class="qi">1️⃣</span>壽豐</a>
-  <a href="#day2"><span class="qi">🐋</span>賞鯨</a>
-  <a href="#day3"><span class="qi">🚄</span>返北</a>
-  <a href="#eat"><span class="qi">🍤</span>美食</a>
-  <a href="#cafe"><span class="qi">☕</span>咖啡</a>
-  <a href="#recapCard"><span class="qi">🎬</span>回顧</a>
+  <div class="wrap">
+    <a href="#day1"><span class="qi">1️⃣</span>壽豐</a>
+    <a href="#day2"><span class="qi">🐋</span>賞鯨</a>
+    <a href="#day3"><span class="qi">🚄</span>返北</a>
+    <a href="#eat"><span class="qi">🍤</span>美食</a>
+    <a href="#cafe"><span class="qi">☕</span>咖啡</a>
+    <a href="#recapCard"><span class="qi">🎬</span>回顧</a>
+  </div>
 </nav>
 
 <div class="player" id="player">
@@ -1025,7 +1031,7 @@
     const photoInput=document.getElementById('photoInput');
     let pending=null; // {key,label,cardEl}
 
-    function titleOf(card){const h=card.querySelector('h3');return h?h.textContent.trim().replace(/\s+/g,' '):'';}
+    function titleOf(card){const h=card.querySelector('h3,h4');return h?h.textContent.trim().replace(/\s+/g,' '):'';}
     function keyOf(card,i){return (i+1)+'_'+titleOf(card).replace(/\s+/g,'').slice(0,24);}
 
     async function renderPhotos(card){
@@ -1061,11 +1067,12 @@
 
     open().then(async(database)=>{
       db=database;
-      const cards=[...document.querySelectorAll('.tl .item .card')];
+      // 行程時間軸卡片 + 美食/咖啡口袋名單卡片，都能加照片打卡
+      const cards=[...document.querySelectorAll('.tl .item .card, .reco')];
       cards.forEach((card,i)=>{
         const key=keyOf(card,i); card.dataset.phkey=key;
         const btn=document.createElement('button');
-        btn.className='addph'; btn.innerHTML='📷 加照片';
+        btn.className='addph'; btn.innerHTML='📷 去過了 · 加照片';
         btn.onclick=(e)=>{e.stopPropagation();
           pending={key:key,label:titleOf(card),cardEl:card}; photoInput.click();};
         card.appendChild(btn);
