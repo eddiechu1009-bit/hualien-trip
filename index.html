@@ -118,6 +118,31 @@
     text-decoration:none;padding:7px 11px;border-radius:9px}
   .alt-item a.mini:active{transform:scale(.96)}
 
+  /* ===== Check-off (完成打勾) ===== */
+  .card{position:relative}
+  .chk{position:absolute;top:13px;right:13px;width:30px;height:30px;border-radius:50%;
+    border:2px solid var(--line);background:#fff;cursor:pointer;display:grid;place-items:center;
+    transition:.18s;padding:0;flex-shrink:0;z-index:2}
+  .chk svg{width:16px;height:16px;stroke:#cbd5e1;fill:none;stroke-width:3;transition:.18s}
+  .chk:active{transform:scale(.88)}
+  .card h3{padding-right:36px}
+  .card.done{opacity:.62}
+  .card.done .chk{background:var(--leaf);border-color:var(--leaf)}
+  .card.done .chk svg{stroke:#fff}
+  .card.done h3{text-decoration:line-through;text-decoration-color:var(--leaf);text-decoration-thickness:2px}
+  .item.done::before{background:var(--leaf);border-color:var(--leaf)}
+
+  /* progress bar */
+  .progress{background:var(--card);border-radius:14px;padding:13px 16px;box-shadow:var(--shadow);
+    border:1px solid var(--line);margin-bottom:4px}
+  .progress .pt{display:flex;justify-content:space-between;align-items:center;font-size:13px;font-weight:700;margin-bottom:8px}
+  .progress .pt span{color:var(--brand)}
+  .progress .bar{height:9px;border-radius:99px;background:var(--bg);overflow:hidden}
+  .progress .fill{height:100%;border-radius:99px;background:linear-gradient(90deg,var(--brand),var(--leaf));
+    width:0;transition:width .4s ease}
+  .progress .reset{margin-top:9px;font-size:12px;color:var(--sub);background:none;border:none;cursor:pointer;
+    text-decoration:underline;padding:0}
+
   .leg{position:relative;margin:-4px 0 10px;padding:3px 0 3px 4px;font-size:12px;font-weight:600;
     color:var(--sub);display:flex;align-items:center;gap:6px}
   .leg::before{content:"";position:absolute;left:-17px;top:0;bottom:0;width:2px;
@@ -197,6 +222,12 @@
 </nav>
 
 <main class="wrap">
+
+  <div class="progress" style="margin-top:18px">
+    <div class="pt"><div>✅ 行程完成度</div><div><span id="pdone">0</span> / <span id="ptotal">0</span></div></div>
+    <div class="bar"><div class="fill" id="pfill"></div></div>
+    <button class="reset" id="preset">清除全部勾選</button>
+  </div>
 
   <!-- ============ DAY 1 ============ -->
   <section id="day1">
@@ -679,6 +710,59 @@
   ['day1','day2','day3','eat'].forEach(id=>{
     const el=document.getElementById(id); if(el) obs.observe(el);
   });
+
+  // ===== Check-off feature (with localStorage) =====
+  (function(){
+    const KEY = 'hualien-trip-done-v1';
+    let store = {};
+    try { store = JSON.parse(localStorage.getItem(KEY) || '{}'); } catch(e){ store = {}; }
+    const ICON = '<svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg>';
+    // Only timeline cards (行程項目), not the reco/口袋名單 cards
+    const cards = [...document.querySelectorAll('.tl .item .card')];
+    const pdone = document.getElementById('pdone');
+    const ptotal = document.getElementById('ptotal');
+    const pfill = document.getElementById('pfill');
+    ptotal.textContent = cards.length;
+
+    function idOf(card, i){
+      const h = card.querySelector('h3');
+      const t = h ? h.textContent.trim().replace(/\s+/g,'') : '';
+      return (i+1)+'_'+t.slice(0,24);
+    }
+    function refresh(){
+      let n=0;
+      cards.forEach(c=>{ if(c.classList.contains('done')) n++; });
+      pdone.textContent = n;
+      pfill.style.width = cards.length ? (n/cards.length*100)+'%' : '0';
+    }
+    cards.forEach((card,i)=>{
+      const key = idOf(card,i);
+      const item = card.closest('.item');
+      const btn = document.createElement('button');
+      btn.className = 'chk';
+      btn.setAttribute('aria-label','標記完成');
+      btn.innerHTML = ICON;
+      if(store[key]){ card.classList.add('done'); item && item.classList.add('done'); }
+      btn.addEventListener('click', (e)=>{
+        e.stopPropagation();
+        const done = card.classList.toggle('done');
+        item && item.classList.toggle('done', done);
+        if(done) store[key]=1; else delete store[key];
+        try { localStorage.setItem(KEY, JSON.stringify(store)); } catch(e){}
+        refresh();
+      });
+      card.appendChild(btn);
+    });
+    refresh();
+
+    document.getElementById('preset').addEventListener('click', ()=>{
+      if(!confirm('確定清除所有勾選紀錄？')) return;
+      store = {};
+      try { localStorage.removeItem(KEY); } catch(e){}
+      cards.forEach(c=>{ c.classList.remove('done'); const it=c.closest('.item'); it&&it.classList.remove('done'); });
+      refresh();
+    });
+  })();
 </script>
 </body>
 </html>
