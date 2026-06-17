@@ -933,7 +933,7 @@
   <div class="status" id="playerStatus"></div>
 </div>
 
-<input type="file" id="photoInput" accept="image/*" capture="environment" style="display:none" />
+<input type="file" id="photoInput" accept="image/*" multiple style="display:none" />
 
 <script>
   // Scroll-spy for sticky day nav
@@ -1056,12 +1056,16 @@
     }
 
     photoInput.addEventListener('change', async()=>{
-      const f=photoInput.files&&photoInput.files[0]; if(!f||!pending)return;
-      try{
-        const data=await compress(f,1280);
-        await addPhoto({key:pending.key,label:pending.label,data:data});
-        await renderPhotos(pending.cardEl); await updateRecap();
-      }catch(e){ alert('照片處理失敗，請再試一次'); }
+      const files=photoInput.files; if(!files||!files.length||!pending)return;
+      let fail=0;
+      for(const f of files){
+        try{
+          const data=await compress(f,1280);
+          await addPhoto({key:pending.key,label:pending.label,data:data});
+        }catch(e){ fail++; }
+      }
+      try{ await renderPhotos(pending.cardEl); await updateRecap(); }catch(e){}
+      if(fail) alert(fail+' 張照片處理失敗，請再試一次');
       photoInput.value=''; pending=null;
     });
 
