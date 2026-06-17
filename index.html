@@ -164,8 +164,14 @@
   .item.play .addph{color:var(--leaf);background:#e7f5ec}
   .reco .addph{margin-top:9px;font-size:12px;padding:7px 11px}
   .reco{position:relative}
-  .reco.done{opacity:.6}
-  .reco.done h4::before{content:"✅ ";}
+  .reco .chk{top:11px;right:11px}
+  .reco h4{padding-right:34px}
+  .reco.done{opacity:.65;padding-top:11px;padding-bottom:11px}
+  .reco.done .chk{background:var(--leaf);border-color:var(--leaf)}
+  .reco.done .chk svg{stroke:#fff}
+  .reco.done h4{text-decoration:line-through;text-decoration-color:var(--leaf);text-decoration-thickness:2px;margin:0}
+  /* 去過收合：只留店名＋勾選鈕，隱藏副標/描述/按鈕/照片 */
+  .reco.done .desc, .reco.done .btns, .reco.done .photos, .reco.done .addph, .reco.done .type{display:none !important}
 
   /* ===== Recap (回顧影片) ===== */
   .recap-card{background:linear-gradient(135deg,#7c3aed,#ec4899);color:#fff;border-radius:var(--r);
@@ -536,14 +542,15 @@
 
       <div class="item food">
         <div class="card">
-          <span class="time">🥟 06:00–11:00 早餐</span>
-          <h3>北昌黃金鍋貼<span class="tag must">30年老店</span></h3>
-          <div class="meta"><span class="stars">★ 4.5</span> · 吉安鄉自強路512號</div>
-          <div class="rec"><b>推薦：</b>黃金大鍋貼（$13/個）、原味蛋餅（$28）</div>
-          <div class="note">✅ 週日有開（目前只開週五六日及國定假日）· 賣完提早收，要早起</div>
+          <span class="time">🥚 06:00–11:00 早餐</span>
+          <h3>美崙紅茶<span class="tag must">花蓮三大紅茶</span></h3>
+          <div class="meta"><span class="stars">★ 4.2</span> · 花蓮市化道路8號 · 06:00–11:00 · ☎ 03-823-4899</div>
+          <div class="rec"><b>推薦：</b>古早味紅茶（小/中/大杯20–30元）、高麗菜粉漿蛋餅、法國吐司(夾肉鬆+草莓醬)。🔴週四休（週日OK）</div>
+          <div class="note warn">⚠️ 原訂北昌黃金鍋貼 <b>6/19–21 全公休</b>，已改美崙紅茶。其他備案：周家蒸餃(公正街,開到凌晨)、廟口紅茶</div>
           <div class="btns">
-            <a class="btn btn-g" href="https://www.google.com/maps/search/?api=1&query=北昌黃金鍋貼早餐店+吉安鄉自強路512號" target="_blank">Google 導航</a>
-            <a class="btn btn-a" href="https://maps.apple.com/?q=北昌黃金鍋貼+吉安鄉自強路512號" target="_blank">Apple 地圖</a>
+            <a class="btn btn-g" href="https://www.google.com/maps/search/?api=1&query=美崙紅茶+花蓮市化道路8號" target="_blank">Google 導航</a>
+            <a class="btn btn-a" href="https://maps.apple.com/?q=美崙紅茶+花蓮市化道路8號" target="_blank">Apple 地圖</a>
+            <a class="btn btn-tel" href="tel:038234899">📞</a>
           </div>
         </div>
       </div>
@@ -878,7 +885,9 @@
         <b>週四休：</b>龍哥斯特、旺福、菊川食堂<br>
         <b>週一休：</b>文華蛋餅、欣欣麵館<br>
         <b>週日（一）休：</b>劉姥姥、榮春、液香扁食 → <span style="color:#b91c1c">6/21 都吃不到</span><br>
-        <b>週六日休：</b>Gaston+Gaby 酸麵包（只能6/19買）
+        <b>週六日休：</b>Gaston+Gaby 酸麵包（只能6/19買）<br>
+        <b style="color:#b91c1c">北昌黃金鍋貼 6/19–21 全公休</b> → 6/21 早餐改美崙紅茶<br>
+        <b>:HANG OUT 漢堡 6月公休：</b>6/13–15、21、22、28、29
       </div>
     </details>
     <details class="faq">
@@ -1004,11 +1013,31 @@
     });
     refresh();
 
+    // 美食/咖啡口袋名單卡片：可打勾收合（獨立 key，不計入行程進度條）
+    const recoCards=[...document.querySelectorAll('.reco')];
+    recoCards.forEach((card,i)=>{
+      const h=card.querySelector('h4');
+      const t=h?h.textContent.trim().replace(/\s+/g,''):'';
+      const key='reco_'+i+'_'+t.slice(0,24);
+      const btn=document.createElement('button');
+      btn.className='chk'; btn.setAttribute('aria-label','標記去過');
+      btn.innerHTML=ICON;
+      if(store[key]) card.classList.add('done');
+      btn.addEventListener('click',(e)=>{
+        e.stopPropagation();
+        const done=card.classList.toggle('done');
+        if(done) store[key]=1; else delete store[key];
+        try{ localStorage.setItem(KEY,JSON.stringify(store)); }catch(e){}
+      });
+      card.appendChild(btn);
+    });
+
     document.getElementById('preset').addEventListener('click', ()=>{
-      if(!confirm('確定清除所有勾選紀錄？')) return;
+      if(!confirm('確定清除所有勾選紀錄？（含美食/咖啡打卡）')) return;
       store = {};
       try { localStorage.removeItem(KEY); } catch(e){}
       cards.forEach(c=>{ c.classList.remove('done'); const it=c.closest('.item'); it&&it.classList.remove('done'); });
+      recoCards.forEach(c=>c.classList.remove('done'));
       refresh();
     });
   })();
